@@ -23,6 +23,10 @@ public class Board {
         }
     }
 
+    public Board(int heaps[]) {
+        this.heaps = heaps;
+    }
+
     public void set(int heap, int amount) {
         this.heaps[heap] = amount;
     }
