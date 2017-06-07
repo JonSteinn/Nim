@@ -84,13 +84,12 @@ public class Controller {
         }
 
         this.message = new Label(" ");
-        this.message.setDisable(true);
         nextHeaps = 7;
 
         VBox sliderWrapper = new VBox();
         sliderWrapper.setPadding(new Insets(5,5,5,5));
         sliderWrapper.setAlignment(Pos.CENTER);
-        this.slider = new Slider(3,7,1);
+        this.slider = new Slider(3,7,7);
         slider.setShowTickLabels(true);
         slider.valueProperty().addListener((obs, oldval, newVal) -> {
                 slider.setValue(newVal.intValue());
@@ -133,11 +132,17 @@ public class Controller {
     }
 
     private void newGame() {
+        message.setText(" ");
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 10; j++) {
+                this.buttons[i][j].setVisible(true);
+            }
+        }
         this.board = new Board(nextHeaps, r);
         for (int i = 0; i < board.heaps(); i++) {
             for (int j = board.get(i); j < 10; j++) this.buttons[i][j].setVisible(false);
         }
-        for (int i = board.heaps() + 1; i < 7; i++) {
+        for (int i = board.heaps(); i < 7; i++) {
             for (int j = 0; j < 10; j++) this.buttons[i][j].setVisible(false);
         }
     }
