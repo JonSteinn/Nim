@@ -7,7 +7,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("Minesweeper");
+        primaryStage.setTitle("Nim");
         primaryStage.setScene(Controller.main.getScene());
         primaryStage.show();
     }
