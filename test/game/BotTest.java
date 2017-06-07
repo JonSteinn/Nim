@@ -26,5 +26,10 @@ class BotTest {
         Action a = Bot.nextAction(b);
         assertEquals(3, a.amount);
         assertTrue(a.heap == 1 || a.heap == 2);
+
+        b = new Board(new int[]{1,2,3});
+        a = Bot.nextAction(b);
+        assertEquals(2, a.amount);
+        assertEquals(2, a.heap);
     }
 }
