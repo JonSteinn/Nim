@@ -1,6 +1,8 @@
 package gui;
 
+import game.Action;
 import game.Board;
+import game.Bot;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,11 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.util.Random;
 
@@ -70,6 +70,8 @@ public class Controller {
             for (int j = 0; j < 10; j++) {
                 buttons[i][j] = new Button("                ");
                 buttons[i][j].getStyleClass().add("cBtn");
+                final int _i = i, _j = j;
+                buttons[i][j].setOnAction((e) -> click(_i, _j));
             }
         }
         this.buttonsWrapper = new GridPane();
@@ -83,7 +85,7 @@ public class Controller {
 
         this.message = new Label(" ");
         this.message.setDisable(true);
-        nextHeaps = 3;
+        nextHeaps = 7;
 
         VBox sliderWrapper = new VBox();
         sliderWrapper.setPadding(new Insets(5,5,5,5));
@@ -114,7 +116,29 @@ public class Controller {
         return this.scene;
     }
 
+    private void click(int x, int y) {
+        for (int i = y; i < 10; i++) this.buttons[x][i].setVisible(false);
+        board.set(x, y);
+
+        if (board.gameOver()) {
+            message.setText("WIN!");
+        } else {
+            Action computerMove = Bot.nextAction(board);
+            for (int i = computerMove.amount; i < 10; i++) this.buttons[computerMove.heap][i].setVisible(false);
+            board.set(computerMove.heap, computerMove.amount);
+            if (board.gameOver()) {
+                message.setText("LOST!");
+            }
+        }
+    }
+
     private void newGame() {
         this.board = new Board(nextHeaps, r);
+        for (int i = 0; i < board.heaps(); i++) {
+            for (int j = board.get(i); j < 10; j++) this.buttons[i][j].setVisible(false);
+        }
+        for (int i = board.heaps() + 1; i < 7; i++) {
+            for (int j = 0; j < 10; j++) this.buttons[i][j].setVisible(false);
+        }
     }
 }

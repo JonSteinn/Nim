@@ -23,8 +23,8 @@ public class Board {
         }
     }
 
-    public void remove(int heap, int amount) {
-        this.heaps[heap] -= amount;
+    public void set(int heap, int amount) {
+        this.heaps[heap] = amount;
     }
 
     public int get(int heap) {

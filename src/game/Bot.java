@@ -19,7 +19,7 @@ public final class Bot {
                 if (i != j) nimSum ^= b[j].value;
             }
             for (int rem = 0; rem < b[i].value; rem++) {
-                if ((rem ^ nimSum) == 0) return new Action(b[i].index, b[i].value - i);
+                if ((rem ^ nimSum) == 0) return new Action(b[i].index, rem);
             }
         }
         return new Action(b[0].index, 1);
