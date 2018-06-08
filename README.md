@@ -1,3 +1,2 @@
 # Nim
-
-Change it from JavaFX to js... in progress
+Just messing around while learning js...
