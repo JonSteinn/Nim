@@ -301,7 +301,7 @@ class Game {
 
     // On click event for player to remove from heaps
     canvas.addEventListener('mousedown', (evt) => {
-        if (game.isOver() || game.board.playersTurn) {
+        if (!game.isOver() && game.board.playersTurn) {
             game.playerMove(evt.offsetX, evt.offsetY);
         }
     });
